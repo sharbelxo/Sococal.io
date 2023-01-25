@@ -134,7 +134,6 @@ export default function Generator() {
                 }).then((res) => {
                     return res.data.choices[0].text;
                 }),
-
                 openai.createCompletion({
                     model: "text-davinci-003",
                     prompt: "Create a " + socialMediaPlatform + " caption for the following post idea:" + contentIdea[3] + "the voice tone of the caption should be " + voiceTone + ", we are promoting:" + promotion + ", call to action: " + destination + ". Ideal Customer is: " + idealCustomer + " that has the following interests: " + idealCustomerInterests + " and include 5 hashtags, no quotations in your answer and add some emojis if needed.",
