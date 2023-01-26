@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { Button, Card, CardContent, Grid, Link, TextField } from '@mui/material';
 
-import './SignUp'
+import './SignUp.css'
 import logoBETA from './assets/logoBETA.png'
 
 export default function SignIn() {
@@ -30,6 +30,7 @@ export default function SignIn() {
         submit: {
             margin: 'auto',
             marginBottom: 20,
+            backgroundColor: '#7184a8',
         },
         link: {
             color: 'blue',
@@ -55,10 +56,10 @@ export default function SignIn() {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(values)
+            body: values
         }
 
-        console.log(requestOptions);
+        console.log(requestOptions.body);
     }
 
     return (
@@ -79,7 +80,7 @@ export default function SignIn() {
                         <TextField required style={styles.textField} id="password" type="password" label="Password" value={password} onChange={(event) => { setPassword(event.target.value) }} margin="normal" />
                         <br />
                         <br />
-                        <Button type="submit" variant="contained" color="primary" style={styles.submit}>Sign In</Button>
+                        <Button type="submit" variant="contained" style={styles.submit}>Sign In</Button>
                         <br />
                     </form>
                     <p>Don't have an account? <Link href='/SignUp' underline="none" color="Blue">Click Here</Link>  to Sign Up.</p>

@@ -11,7 +11,7 @@ export default function AppFooter() {
         <footer>
             <Box px={{ xs: 3, sm: 8 }}
                 py={{ xs: 5, sm: 4 }}
-                sx={{ bgcolor: '#708090' }} color="white">
+                sx={{ bgcolor: '#7184a8' }} color="white">
                 <Container maxWidth="lg">
                     <Grid container spacing={5}>
                         <Grid item xs={12} sm={4}>

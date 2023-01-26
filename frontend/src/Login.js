@@ -32,7 +32,7 @@ export default function Login() {
                 <br />
                 <TextField item id="code" label="Access Code" variant="outlined" value={code} onChange={(event) => { setCode(event.target.value) }} />
                 <br />
-                <Button item variant="contained" color="primary" onClick={verify}>Submit</Button>
+                <Button item variant="contained" style={{ backgroundColor: '#7184a8' }} onClick={verify}>Submit</Button>
             </Grid>
         </>
 

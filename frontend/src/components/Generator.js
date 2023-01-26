@@ -278,7 +278,6 @@ export default function Generator() {
     //     setLoading(false);
     //     setEmpty(false);
     //     console.log(contentArray);
-    //     setContent(contentArray);
     // }
 
     const [brandName, setBrandName] = useState("");
@@ -294,8 +293,6 @@ export default function Generator() {
     const [focus, setFocus] = useState("");
 
     const [empty, setEmpty] = useState(true);
-
-    const [content, setContent] = useState([[], []]);
 
     const [loading, setLoading] = useState(false);
 
@@ -313,13 +310,13 @@ export default function Generator() {
         setBrandDescription("")
         setIdealCustomer("")
         setVoiceTone("")
-        setContent([[], []])
         setPromotion("")
         setSocialMediaPlatform("")
         setDestination("")
         setProduct("")
         setFocus("")
         setIdealCustomerInterests("")
+        setEmpty(true)
     }
 
     return (
@@ -450,10 +447,10 @@ export default function Generator() {
                 <br />
                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                     <Grid item xs={0}>
-                        <LoadingButton type="submit" loading={loading} variant="contained" color="primary" sx={{ bgcolor: '#708090' }} >Generate Content</LoadingButton>
+                        <LoadingButton type="submit" loading={loading} variant="contained" color="primary" sx={{ bgcolor: '#7184a8' }} >Generate Content</LoadingButton>
                     </Grid>
                     <Grid item xs={0}>
-                        <Button variant="contained" color="primary" onClick={resetInputs}>Reset</Button>
+                        <Button variant="contained" color='primary' onClick={resetInputs}>Reset</Button>
                     </Grid>
                 </Grid>
             </form>
@@ -467,20 +464,19 @@ export default function Generator() {
             <br />
             <div id="result">
                 <Grid container alignItems="center" justifyContent="center" direction={'column'}>
+                    <br />
                     {!empty && responses.map((contentItem, index) => {
                         return (
                             <>
                                 {console.log(responses[3][0])}
                                 <OutlinedCard index={counter++} contentIdea={contentItem[0]} caption={contentItem[1]} />
                                 <br />
-                                {/* <OutlinedCard index={counter++} contentIdea={contentItem[2]} caption={contentItem[3]} />
-                                <br />
-                                <OutlinedCard index={counter++} contentIdea={contentItem[4]} caption={contentItem[5]} />
-                                <br /> */}
                             </>
                         )
                     })}
+                    {!empty && <Button size="large" variant="contained" style={{ backgroundColor: '#7184a8' }} href="https://sococal.com/products/monthly-subscription" >Sign Up for a full 30-day Calendar!</Button>}
                 </Grid>
+                <br />
             </div>
         </div >
     )

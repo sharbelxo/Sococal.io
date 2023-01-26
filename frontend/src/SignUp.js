@@ -30,6 +30,7 @@ export default function SignUp() {
         submit: {
             margin: 'auto',
             marginBottom: 20,
+            backgroundColor: '#7184a8',
         },
         link: {
             color: 'blue',
@@ -59,10 +60,10 @@ export default function SignUp() {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(values)
+            body: values
         };
 
-        console.log(requestOptions);
+        console.log(requestOptions.body);
 
     }
 
@@ -87,7 +88,7 @@ export default function SignUp() {
                         <TextField required style={styles.textField} id="password" type="password" label="Password" value={password} onChange={(event) => { setPassword(event.target.value) }} margin="normal" />
                         <br />
                         <br />
-                        <Button type="submit" variant="contained" color="primary" style={styles.submit}>Sign Up</Button>
+                        <Button type="submit" variant="contained" style={styles.submit}>Sign Up</Button>
                         <br />
                     </form>
                     <p>Already have an account? <Link href='/Login' underline="none" color="Blue">Click Here</Link>  to log in.</p>

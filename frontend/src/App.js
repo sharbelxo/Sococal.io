@@ -28,6 +28,7 @@ export default function App() {
         <Route exact path='/Login' element={<Login />} />
         <Route exact path='/SignUp' element={<SignUp />} />
         <Route exact path='/SignIn' element={<SignIn />} />
+        <Route exact path='*' element={<h1>Page Not Available!</h1>} />
       </Routes>
     </Router>
     // <div className="container" style={{ padding: '50px 0 100px 0' }}>
