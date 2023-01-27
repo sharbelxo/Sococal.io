@@ -12,8 +12,8 @@ export default function App() {
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route exact path='/Login' element={<Login />} />
-        {/* <Route exact path='/SignUp' element={<SignUp />} />
-        <Route exact path='/SignIn' element={<SignIn />} /> */}
+        <Route exact path='/SignUp' element={<SignUp />} />
+        <Route exact path='/SignIn' element={<SignIn />} />
         <Route exact path='*' element={<h1>Page Not Available!</h1>} />
       </Routes>
     </Router>
