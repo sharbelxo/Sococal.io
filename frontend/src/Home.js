@@ -6,17 +6,6 @@ import AppFooter from './components/AppFooter';
 import ResponsiveAppBar from './components/ResponsiveAppBar';
 import Generator from './components/Generator';
 
-// import { createTheme, ThemeProvider } from '@mui/material';
-
-// const theme = createTheme({
-//     typography: {
-//         fontFamily: [
-//             'Quicksand',
-//             'cursive',
-//         ].join(','),
-//     },
-// });
-
 export default function Home() {
 
     useEffect(() => {
@@ -29,7 +18,6 @@ export default function Home() {
 
     return (
         <>
-            {/* <ThemeProvider theme={theme}> */}
             <ResponsiveAppBar />
             <br />
             <Grid container alignItems="center" justifyContent="center">
@@ -53,7 +41,6 @@ export default function Home() {
                     <AppFooter />
                 </Box >
             </Grid>
-            {/* </ThemeProvider> */}
         </>
     )
 }

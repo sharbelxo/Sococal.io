@@ -4,6 +4,8 @@ import { Button, Card, CardContent, Grid, Link, TextField } from '@mui/material'
 import './SignUp.css'
 import logoBETA from './assets/logoBETA.png'
 
+import { supabase } from './supabaseClient';
+
 export default function SignIn() {
 
     const styles = {
@@ -44,8 +46,8 @@ export default function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
-        // e.preventDefault();
+    const handleSubmit = async (e) => {
+
         console.log(email, password);
 
         const values = {
@@ -60,6 +62,19 @@ export default function SignIn() {
         }
 
         console.log(requestOptions.body);
+
+        try {
+            const { error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+            if (error) throw error;
+            alert('Signed in successfully!');
+            localStorage.setItem('access', 'true');
+            window.location.href = '/';
+        } catch (error) {
+            alert(error.error_description || error.message);
+        }
     }
 
     return (

@@ -71,4 +71,3 @@ export default function OutlinedCard({ contentIdea, caption, index }) {
         </>
     );
 }
-
