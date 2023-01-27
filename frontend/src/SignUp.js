@@ -73,7 +73,7 @@ export default function SignUp() {
             });
             if (error) throw error;
             alert('You have successfully signed up!');
-            window.location.href = '/login';
+            window.location.href = '/Login';
             // history.push('/login');
         } catch (error) {
             alert(error.error_description || error.message);
