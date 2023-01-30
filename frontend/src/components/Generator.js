@@ -19,11 +19,12 @@ export default function Generator() {
 
         setEmpty(true)
         let result = [[], [], [], [], [], [], []];
+
         try {
             const contentIdea = await Promise.all([
                 openai.createCompletion({
                     model: "text-davinci-003",
-                    prompt: "Create for me a picture idea for my brand that sells product: " + product + " with two sentences.",
+                    prompt: "Create for me a picture idea for my brand that sells product: " + product1 + " with two sentences.",
                     temperature: 1,
                     max_tokens: 300,
                     top_p: 1,
@@ -56,7 +57,7 @@ export default function Generator() {
                 }),
                 openai.createCompletion({
                     model: "text-davinci-003",
-                    prompt: "Create for me a picture idea for my brand that talks about: " + product + " with two sentences.",
+                    prompt: "Create for me a picture idea for my brand that talks about: " + product2 + " with two sentences.",
                     temperature: 1,
                     max_tokens: 300,
                     top_p: 1,
@@ -89,7 +90,7 @@ export default function Generator() {
                 }),
                 openai.createCompletion({
                     model: "text-davinci-003",
-                    prompt: "Create for me a picture idea for my brand that talks about: " + product + " with two sentences.",
+                    prompt: "Create for me a picture idea for my brand that talks about: " + product3 + " with two sentences.",
                     temperature: 1,
                     max_tokens: 300,
                     top_p: 1,
@@ -287,7 +288,9 @@ export default function Generator() {
     const [promotion, setPromotion] = useState("");
     const [socialMediaPlatform, setSocialMediaPlatform] = useState("");
     const [destination, setDestination] = useState("");
-    const [product, setProduct] = useState("");
+    const [product1, setProduct1] = useState("");
+    const [product2, setProduct2] = useState("");
+    const [product3, setProduct3] = useState("");
     const [idealCustomerInterests, setIdealCustomerInterests] = useState("");
 
     const [focus, setFocus] = useState("");
@@ -313,7 +316,9 @@ export default function Generator() {
         setPromotion("")
         setSocialMediaPlatform("")
         setDestination("")
-        setProduct("")
+        setProduct1("")
+        setProduct2("")
+        setProduct3("")
         setFocus("")
         setIdealCustomerInterests("")
         setEmpty(true)
@@ -338,24 +343,13 @@ export default function Generator() {
                     <Grid item container spacing={2} alignItems="center" justifyContent="center" style={{ minHeight: '10vh' }}>
                         <Grid item container spacing={2} alignItems="center" justifyContent="center" direction={'column'}>
                             <Grid item>
-                                <TextField required type="text" id="outlined-basic1" style={{ minWidth: 200 }} color="primary" value={promotion} onChange={(event) => { setPromotion(event.target.value) }} label="Goal or Occasion" variant="outlined" />
+                                <TextField required type="text" id="outlined-basic1" style={{ minWidth: 330 }} color="primary" value={promotion} onChange={(event) => { setPromotion(event.target.value) }} label="Goal or Occasion" variant="outlined" />
                             </Grid>
                             <Typography fontSize={13} component="div" gutterBottom sx={{ display: { xs: 'none', md: 'block' } }}>
                                 (Ex. sale, new collection, valentine's day, etc.)
                             </Typography>
                             <Typography fontSize={10} component="div" gutterBottom sx={{ display: { xs: 'block', md: 'none' } }}>
                                 (Ex. sale, new collection, valentine's day, etc.)
-                            </Typography>
-                        </Grid>
-                        <Grid item container spacing={2} alignItems="center" justifyContent="center" direction={'column'}>
-                            <Grid item>
-                                <TextField type="text" id="outlined-basic2" style={{ minWidth: 330 }} color="primary" value={product} onChange={(event) => { setProduct(event.target.value) }} label="Specific Products/Services to Highlight" variant="outlined" />
-                            </Grid>
-                            <Typography fontSize={13} component="div" gutterBottom sx={{ display: { xs: 'none', md: 'block' } }}>
-                                (Ex. winter jackets, new menu item, delivery service, etc.)
-                            </Typography>
-                            <Typography fontSize={10} component="div" gutterBottom sx={{ display: { xs: 'block', md: 'none' } }}>
-                                (Ex. winter jackets, new menu item, delivery service, etc.)
                             </Typography>
                         </Grid>
                     </Grid>
@@ -364,22 +358,25 @@ export default function Generator() {
                 <Divider>Social Media Platform & Desired Destination</Divider>
                 <br />
                 <Grid container spacing={2} alignItems="center" justifyContent="center" style={{ minHeight: '20vh' }}>
-                    <Grid item>
-                        <FormControl fullWidth>
-                            <InputLabel color="primary" id="socialMediaPlatform">Social Media Platform</InputLabel>
-                            <Select required id="outlined-basic3" color="primary" style={{ minWidth: 220 }} value={socialMediaPlatform} label="Social Media Platform" onChange={(event) => { setSocialMediaPlatform(event.target.value) }}>
-                                <MenuItem value={"Facebook"}>Facebook</MenuItem>
-                                <MenuItem value={"Instagram"}>Instagram</MenuItem>
-                                <MenuItem value={"Twitter"}>Twitter</MenuItem>
-                                <MenuItem value={"Linkedin"}>Linkedin</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item container spacing={2} alignItems="center" justifyContent="center" direction={'column'}>
+                    <Grid item container spacing={2} alignItems="center" justifyContent="center">
+                        <Grid item>
+                            <FormControl fullWidth>
+                                <InputLabel color="primary" id="socialMediaPlatform">Social Media Platform</InputLabel>
+                                <Select required id="outlined-basic3" color="primary" style={{ minWidth: 330 }} value={socialMediaPlatform} label="Social Media Platform" onChange={(event) => { setSocialMediaPlatform(event.target.value) }}>
+                                    <MenuItem value={"Facebook"}>Facebook</MenuItem>
+                                    <MenuItem value={"Instagram"}>Instagram</MenuItem>
+                                    <MenuItem value={"Twitter"}>Twitter</MenuItem>
+                                    <MenuItem value={"Linkedin"}>Linkedin</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
                         <Grid item>
                             <TextField type="text" id="outlined-basic4" color="primary" style={{ minWidth: 340 }} value={destination} onChange={(event) => { setDestination(event.target.value) }} label="Your Website, Phone, DM, Retail Location" variant="outlined" />
                         </Grid>
+                        &nbsp;
                         <Typography fontSize={13} component="div" gutterBottom sx={{ display: { xs: 'none', md: 'block' } }}>
+                            <br />
                             (Ex. our online store boutique.com and our retail location @ 111 Street in Paris etc.)
                         </Typography>
                         <Typography fontSize={10} component="div" gutterBottom sx={{ display: { xs: 'block', md: 'none' } }}>
@@ -394,23 +391,26 @@ export default function Generator() {
                 <Divider>Brand Details</Divider>
                 <br />
                 <Grid container spacing={2} alignItems="center" justifyContent="center" style={{ minHeight: '20vh' }}>
-                    <Grid item>
-                        <TextField required id="outlined-basic5" color="primary" value={brandName} onChange={(event) => { setBrandName(event.target.value) }} label="Brand Name" variant="outlined" />
-                    </Grid>
-                    <Grid item container spacing={2} alignItems="center" justifyContent="center" direction={'column'}>
+                    <Grid item container spacing={2} alignItems="center" justifyContent="center" >
                         <Grid item>
-                            <TextField required id="outlined-basic6" color="primary" value={brandDescription} onChange={(event) => { setBrandDescription(event.target.value) }} label="Brand Description" variant="outlined" />
+                            <TextField required id="outlined-basic5" color="primary" style={{ minWidth: 330 }} value={brandName} onChange={(event) => { setBrandName(event.target.value) }} label="Brand Name" variant="outlined" />
                         </Grid>
+                        <Grid item>
+                            <TextField required id="outlined-basic6" color="primary" style={{ minWidth: 330 }} value={brandDescription} onChange={(event) => { setBrandDescription(event.target.value) }} label="Brand Description" variant="outlined" />
+                        </Grid>
+                        &nbsp;
                         <Typography fontSize={13} component="div" gutterBottom sx={{ display: { xs: 'none', md: 'block' } }}>
+                            <br />
                             (Ex. high end fashion boutique in Paris etc.)
                         </Typography>
                         <Typography fontSize={10} component="div" gutterBottom sx={{ display: { xs: 'block', md: 'none' } }}>
                             (Ex. high end fashion boutique in Paris etc.)
                         </Typography>
                     </Grid>
+
                     <Grid item container spacing={2} alignItems="center" justifyContent="center" direction={'column'}>
                         <Grid item>
-                            <TextField required id="outlined-basic7" color="primary" value={idealCustomer} onChange={(event) => { setIdealCustomer(event.target.value) }} label="Ideal Customer" variant="outlined" />
+                            <TextField required id="outlined-basic7" color="primary" style={{ minWidth: 330 }} value={idealCustomer} onChange={(event) => { setIdealCustomer(event.target.value) }} label="Ideal Customer" variant="outlined" />
                         </Grid>
                         <Typography fontSize={13} component="div" gutterBottom sx={{ display: { xs: 'none', md: 'block' } }}>
                             (Ex. young fashionable women who are on trend and like to update their wardrobe etc.)
@@ -421,7 +421,7 @@ export default function Generator() {
                     </Grid>
                     <Grid item container spacing={2} alignItems="center" justifyContent="center" direction={'column'} >
                         <Grid item >
-                            <TextField id="outlined-basic10" color="primary" style={{ minWidth: 200 }} value={idealCustomerInterests} onChange={(event) => { setIdealCustomerInterests(event.target.value) }} label="Ideal Customer Interests" variant="outlined" />
+                            <TextField id="outlined-basic10" color="primary" style={{ minWidth: 330 }} value={idealCustomerInterests} onChange={(event) => { setIdealCustomerInterests(event.target.value) }} label="Ideal Customer Interests" variant="outlined" />
                         </Grid>
                         <Typography fontSize={13} component="div" gutterBottom sx={{ display: { xs: 'none', md: 'block' } }}>
                             (Ex. hiking, cars, luxury, lifestyle, etc.)
@@ -430,18 +430,44 @@ export default function Generator() {
                             (Ex. hiking, cars, luxury, lifestyle, etc.)
                         </Typography>
                     </Grid>
-                    <Grid item container spacing={2} alignItems="center" justifyContent="center" direction={'column'}>
-                        <Grid item>
-                            <TextField required id="outlined-basic8" color="primary" value={voiceTone} onChange={(event) => { setVoiceTone(event.target.value) }} label="Voice Tone" variant="outlined" />
-                        </Grid>
-                        <Typography fontSize={13} component="div" gutterBottom sx={{ display: { xs: 'none', md: 'block' } }}>
-                            (Ex. formal/professional, casual/informal, persuasive, witty/humorous, emotional, descriptive, etc.)
-                        </Typography>
-                        <Typography fontSize={10} component="div" gutterBottom sx={{ display: { xs: 'block', md: 'none' } }}>
-                            (Ex. formal/professional, casual/informal, persuasive,<br />witty/humorous, emotional, descriptive, etc.)
-                        </Typography>
-                    </Grid>
+
                 </Grid >
+                <br />
+                <Divider>Products & Services (Up to 3)</Divider>
+                <br />
+                <Grid item container spacing={2} alignItems="center" justifyContent="center" >
+                    <Grid item>
+                        <TextField required type="text" id="outlined-basic2" style={{ minWidth: 330 }} color="primary" value={product1} onChange={(event) => { setProduct1(event.target.value) }} label="Write your product name and description" variant="outlined" />
+                    </Grid>
+                    <Grid item>
+                        <TextField type="text" id="outlined-basic2" style={{ minWidth: 330 }} color="primary" value={product2} onChange={(event) => { setProduct2(event.target.value) }} label="Write your product name and description" variant="outlined" />
+                    </Grid>
+                    <Grid item>
+                        <TextField type="text" id="outlined-basic2" style={{ minWidth: 330 }} color="primary" value={product3} onChange={(event) => { setProduct3(event.target.value) }} label="Write your product name and description" variant="outlined" />
+                    </Grid>
+                    &nbsp;
+                    <Typography fontSize={13} component="div" gutterBottom sx={{ display: { xs: 'none', md: 'block' } }}>
+                        <br />
+                        (Ex. winter jackets, new menu item, delivery service, etc.)
+                    </Typography>
+                    <Typography fontSize={10} component="div" gutterBottom sx={{ display: { xs: 'block', md: 'none' } }}>
+                        (Ex. winter jackets, new menu item, delivery service, etc.)
+                    </Typography>
+                </Grid>
+                <br />
+                <Divider>Tone of Voice</Divider>
+                <br />
+                <Grid item container spacing={2} alignItems="center" justifyContent="center" direction={'column'}>
+                    <Grid item>
+                        <TextField required id="outlined-basic8" color="primary" style={{ minWidth: 330 }} value={voiceTone} onChange={(event) => { setVoiceTone(event.target.value) }} label="Voice Tone" variant="outlined" />
+                    </Grid>
+                    <Typography fontSize={13} component="div" gutterBottom sx={{ display: { xs: 'none', md: 'block' } }}>
+                        (Ex. formal/professional, casual/informal, persuasive, witty/humorous, emotional, descriptive, etc.)
+                    </Typography>
+                    <Typography fontSize={10} component="div" gutterBottom sx={{ display: { xs: 'block', md: 'none' } }}>
+                        (Ex. formal/professional, casual/informal, persuasive,<br />witty/humorous, emotional, descriptive, etc.)
+                    </Typography>
+                </Grid>
                 <br />
                 <Divider></Divider>
                 <br />
@@ -468,13 +494,13 @@ export default function Generator() {
                     {!empty && responses.map((contentItem, index) => {
                         return (
                             <>
-                                {console.log(responses[3][0])}
+                                {/* {console.log(responses[3][0])} */}
                                 <OutlinedCard index={counter++} contentIdea={contentItem[0]} caption={contentItem[1]} />
                                 <br />
                             </>
                         )
                     })}
-                    {!empty && <Button size="large" variant="contained" style={{ backgroundColor: '#7184a8' }} href="https://sococal.com/products/monthly-subscription" >Sign Up for a full 30-day Calendar!</Button>}
+                    {!empty && <Button size="large" target="_blank" variant="contained" style={{ backgroundColor: '#7184a8' }} href="https://sococal.com/products/monthly-subscription" >Sign Up for a full 30-day Calendar!</Button>}
                 </Grid>
                 <br />
             </div>

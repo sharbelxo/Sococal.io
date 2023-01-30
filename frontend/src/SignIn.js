@@ -69,7 +69,7 @@ export default function SignIn() {
                 password: password
             });
             if (error) throw error;
-            alert('Signed in successfully!');
+            // alert('Signed in successfully!');
             localStorage.setItem('access', 'true');
             window.location.href = '/';
         } catch (error) {

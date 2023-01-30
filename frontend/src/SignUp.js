@@ -72,7 +72,7 @@ export default function SignUp() {
                 password: password
             });
             if (error) throw error;
-            alert('You have successfully signed up!');
+            alert('Sign up Successful! Please confirm your Email to login.');
             window.location.href = '/Login';
             // history.push('/login');
         } catch (error) {
