@@ -6,7 +6,6 @@ from supabase import create_client, Client
 import openai
 import os
 from dotenv import load_dotenv
-load_dotenv()
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 import aiohttp
@@ -24,6 +23,7 @@ import requests
 from pyppeteer import launch
 
 
+load_dotenv()
 
 app = FastAPI()
 
