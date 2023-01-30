@@ -3,13 +3,25 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from pydantic import BaseModel
 from typing import List
 from supabase import create_client, Client
-import json
 import openai
 import os
 from dotenv import load_dotenv
 load_dotenv()
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+import aiohttp
+from typing import List
+import asyncio
+import json
+import requests
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from typing import List
+from bs4 import BeautifulSoup
+import requests
+from pyppeteer import launch
 
 
 
@@ -26,20 +38,32 @@ supabase: Client = create_client(url, key)
 
 
 class UserCreate(BaseModel):
+    firstName: str
+    lastName: str
     email: str
     password: str
 
 @app.post("/register")
 async def create_user(user: UserCreate):
-    email = user.email
-    password = user.password
     try:
-        res = supabase.auth.sign_up(email = email, password = password)
-        print(res)
+        # Extract values from UserCreate object
+        firstName = user.firstName
+        lastName = user.lastName
+        email = user.email
+        password = user.password
+        
+        # Create a new user
+        res = supabase.auth.sign_up(email=email, password=password)
+        #get the user id
+        user_id = res['data']['id']
+        #check if the email is in the suscribers table before adding the user
+        res = supabase.from_("subscribers").select("*").eq("email", email).execute()
+        if len(res['data']) == 0:
+            #insert the user into the users table
+            res = supabase.from_("subscribers").insert({"id": user_id, "firstName": firstName, "lastName": lastName, "email": email}).execute()
         return res
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 
@@ -53,9 +77,6 @@ async def sign_in(user: SignIn):
     password = user.password
     try:
         res = supabase.auth.sign_in(email=email, password=password)
-        #/s_client = supabase.table('subscriptions').select(id).eq(res.data["identities"]["user_id"])
-        #/ print(s_client)
-        #/  res2 = supabase.table('subscriptions')
         return res
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -71,6 +92,37 @@ async def logout():
         return result
     except Exception as e:
         raise HTTPException(status_code=401, detail=str(e))
+
+
+@app.post("/getEmail")
+async def logout():
+    try:
+        # Revoke the user's token
+        result = supabase.auth.user
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=401, detail=str(e))
+        
+
+
+@app.get("/instagram/{username}")
+async def get_instagram_info(username: str):
+    try:
+        browser = await launch(headless=False)
+        page = await browser.newPage()
+        await page.goto(f'https://www.instagram.com/{username}/')
+        h2_text = " "
+        h1_text = " "
+        website = " "
+        h2_text = await page.querySelectorEval('h2', 'node => node.innerText')
+        h1_text = await page.querySelectorEval('h1', 'node => node.innerText')
+        website = await page.querySelectorEval('a', 'node => node.innerText') 
+    except:
+        raise HTTPException(status_code=404, detail="User not found.")
+    finally:
+        await browser.close()
+    return {"username": h2_text, "description": h1_text, "website": website}
+
 
 
 """
@@ -132,6 +184,9 @@ class Generate(BaseModel):
     destination: str
     idealCustomerInterests: str
 
+
+
+
 @app.post("/generate_text")
 async def generate_text(data: Generate):
 
@@ -175,6 +230,8 @@ async def generate_text(data: Generate):
         frequency_penalty= 0.7,
         presence_penalty= 0.8
     )
+
+
     return {
     "Day1": {
         "ContentIdea": contentIdea1.choices[0].text,
@@ -185,4 +242,3 @@ async def generate_text(data: Generate):
         "Caption": caption2.choices[0].text
     }
 }
-
