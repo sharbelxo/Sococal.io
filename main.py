@@ -57,8 +57,8 @@ async def create_user(user: UserCreate):
         #get the user id
         user_id = res.id # ['data']['id']
         #check if the email is in the suscribers table before adding the user
-        res = supabase.from_("subscribers").select("*").eq("id", user_id).execute()
-        if len(res['data']) == 0:
+        res2 = supabase.from_("subscribers").select("*").eq("id", user_id).execute()
+        if len(res2['data']) == 0:
             #insert the user into the users table
             res = supabase.from_("subscribers").insert({"id": user_id, "firstName": firstName, "lastName": lastName, "email": email}).execute()
         return res
