@@ -55,9 +55,9 @@ async def create_user(user: UserCreate):
         # Create a new user
         res = supabase.auth.sign_up(email=email, password=password)
         #get the user id
-        user_id = res['data']['id']
+        user_id = res.id # ['data']['id']
         #check if the email is in the suscribers table before adding the user
-        res = supabase.from_("subscribers").select("*").eq("email", email).execute()
+        res = supabase.from_("subscribers").select("*").eq("id", user_id).execute()
         if len(res['data']) == 0:
             #insert the user into the users table
             res = supabase.from_("subscribers").insert({"id": user_id, "firstName": firstName, "lastName": lastName, "email": email}).execute()
@@ -77,6 +77,7 @@ async def sign_in(user: SignIn):
     password = user.password
     try:
         res = supabase.auth.sign_in(email=email, password=password)
+
         return res
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
