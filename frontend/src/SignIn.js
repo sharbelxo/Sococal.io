@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Button, Card, CardContent, Grid, Link, TextField } from '@mui/material';
 
 import './SignUp.css'
@@ -6,7 +6,19 @@ import logoBETA from './assets/logoBETA.png'
 
 import { supabase } from './supabaseClient';
 
+// import axios from 'axios';
+
 export default function SignIn() {
+
+    // useEffect(() => {
+    //     axios.get('http://localhost:8000/instagram/sococalai')
+    //         .then(response => {
+    //             console.log(response.data);
+    //         })
+    //         .catch(error => {
+    //             console.error(error);
+    //         });
+    // }, []);
 
     const styles = {
         card: {
